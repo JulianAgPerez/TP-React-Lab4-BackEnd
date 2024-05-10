@@ -1,7 +1,8 @@
 package com.utn.tpreactbackend.repository;
 
 import com.utn.tpreactbackend.entities.Instrumento;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface InstrumentoRepository extends JpaRepository<Instrumento, Long> {
+@Repository
+public interface InstrumentoRepository extends BaseRepository<Instrumento, Long> {
 }
