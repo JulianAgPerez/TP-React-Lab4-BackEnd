@@ -16,7 +16,7 @@ public abstract class BaseControllerImpl <E extends Base, baseService extends Ba
         this.servicio = servicio;
     }
 
-    @GetMapping("/includeDeleted")
+    @GetMapping("")
     public ResponseEntity<?> findAll(){
         try{
             return ResponseEntity
@@ -29,7 +29,7 @@ public abstract class BaseControllerImpl <E extends Base, baseService extends Ba
         }
     }
 
-    @GetMapping("/includeDeleted/paged")
+    @GetMapping("/paged")
     public ResponseEntity<?> findAll(Pageable pageable){
         try{
             return ResponseEntity

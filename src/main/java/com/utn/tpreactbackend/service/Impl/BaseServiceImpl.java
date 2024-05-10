@@ -1,15 +1,12 @@
 package com.utn.tpreactbackend.service.Impl;
 
 import com.utn.tpreactbackend.entities.Base;
-import com.utn.tpreactbackend.entities.Instrumento;
 import com.utn.tpreactbackend.repository.BaseRepository;
 import com.utn.tpreactbackend.service.IBaseService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
