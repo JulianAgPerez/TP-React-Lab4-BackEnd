@@ -1,19 +1,22 @@
-package com.utn.tpreactbackend.controller;
+package com.utn.tpreactbackend.controller.Impl;
 
-import com.utn.tpreactbackend.service.InstrumentoService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import com.utn.tpreactbackend.controller.IInstrumentoController;
+import com.utn.tpreactbackend.entities.Instrumento;
+import com.utn.tpreactbackend.service.Impl.InstrumentoServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
-@RequestMapping("/instrumentos")
-@CrossOrigin(origins = "*", methods = RequestMethod.GET)
-public class InstrumentoController {
+@RestController
+@RequestMapping("/instrumentos/productos")
+@CrossOrigin(origins = "*")
+public class InstrumentoControllerImpl extends BaseControllerImpl<Instrumento, InstrumentoServiceImpl> implements IInstrumentoController{
+    public InstrumentoControllerImpl(InstrumentoServiceImpl servicio) {
+        super(servicio);
+    }
 
+
+/*
     @Autowired
-    private InstrumentoService instrumentoService;
+    private IInstrumentoService instrumentoService;
 
     @GetMapping("/productos")
     public ResponseEntity<?> getAll() {
@@ -32,5 +35,5 @@ public class InstrumentoController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" + e.getMessage() + "\"}");
         }
     }
-
+*/
 }
