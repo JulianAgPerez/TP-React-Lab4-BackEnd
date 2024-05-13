@@ -41,7 +41,18 @@ public abstract class BaseControllerImpl <E extends Base, baseService extends Ba
                     .body("{\"error\":\"Error, por favor intente mas tarde.\"}");
         }
     }
-
+    @GetMapping("/categorias/{idCategoria}")
+    public ResponseEntity<?> findAllByCategoriaId(@PathVariable Long idCategoria) {
+        try {
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(servicio.findAllByCategoriaId(idCategoria));
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("{\"error\": \"" + e.getMessage() + "\"}");
+        }
+    }
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id){
         try{

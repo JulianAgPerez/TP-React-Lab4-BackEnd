@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping(path= "/categorias")
+@RequestMapping(path= "/instrumentos/categorias")
 public class CategoriaControllerImpl extends BaseControllerImpl<Categoria, CategoriaServiceImpl> implements ICategoriaController {
 
 

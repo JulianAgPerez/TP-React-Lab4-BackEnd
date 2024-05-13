@@ -42,6 +42,19 @@ public abstract class BaseServiceImpl<E extends Base, Id extends Serializable> i
             throw new Exception(e.getMessage());
         }
     }
+    @Override
+    @Transactional
+    public List<E> findAllByCategoriaId(Id idCategoria) throws Exception {
+        try {
+            List<E> entities = baseRepository.findAllByCategoriaId(idCategoria);
+            if (!entities.isEmpty())
+                return entities;
+            else
+                throw new Exception("No se encontraron entidades con el ID de categoría: " + idCategoria);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
 
     @Override
     @Transactional
