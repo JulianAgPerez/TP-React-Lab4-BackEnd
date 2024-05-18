@@ -13,27 +13,4 @@ public class InstrumentoControllerImpl extends BaseControllerImpl<Instrumento, I
         super(servicio);
     }
 
-
-/*
-    @Autowired
-    private IInstrumentoService instrumentoService;
-
-    @GetMapping("/productos")
-    public ResponseEntity<?> getAll() {
-        try {
-            return ResponseEntity.status(HttpStatus.OK).body(instrumentoService.findAll());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" + e.getMessage() + "\"}");
-        }
-    }
-
-    @GetMapping("/productos/{id}")
-    public ResponseEntity<?> getOne(@PathVariable Long id) {
-        try {
-            return ResponseEntity.status(HttpStatus.OK).body(instrumentoService.findById(id));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" + e.getMessage() + "\"}");
-        }
-    }
-*/
 }
