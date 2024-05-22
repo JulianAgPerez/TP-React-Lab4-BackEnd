@@ -1,13 +1,16 @@
 package com.utn.tpreactbackend.controller.Impl;
 import com.utn.tpreactbackend.controller.IPedidoController;
 import com.utn.tpreactbackend.entities.Pedido;
+import com.utn.tpreactbackend.entities.PedidoDetalle;
 import com.utn.tpreactbackend.repository.PedidoRepository;
+import com.utn.tpreactbackend.service.IPedidoService;
 import com.utn.tpreactbackend.service.Impl.PedidoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/pedidos")
@@ -37,4 +40,5 @@ public class PedidoControllerImpl  extends BaseControllerImpl<Pedido, PedidoServ
         Pedido savedPedido = pedidoRepository.save(pedido);
         return ResponseEntity.ok("El pedido con id " + savedPedido.getId() + " se guardó correctamente");
     }
+
 }
