@@ -30,6 +30,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'mysql:mysql-connector-java:8.0.30'
     implementation 'mysql:mysql-connector-java:8.0.30'
+    implementation 'com.mercadopago:sdk-java:2.1.24'
 }
 
 tasks.named('test') {
