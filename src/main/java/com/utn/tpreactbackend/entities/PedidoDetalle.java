@@ -1,5 +1,6 @@
 package com.utn.tpreactbackend.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +22,7 @@ public class PedidoDetalle {
     private int cantidad;
     @ManyToOne
     @JoinColumn(name = "pedido_id")
+    @JsonBackReference //Sirve para resaltar que es hija (y evitar referencia circular)
     private Pedido pedido;
 
     @ManyToOne

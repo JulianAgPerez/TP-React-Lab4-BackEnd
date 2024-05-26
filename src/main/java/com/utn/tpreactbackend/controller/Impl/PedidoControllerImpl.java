@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -30,11 +31,21 @@ public class PedidoControllerImpl  extends BaseControllerImpl<Pedido, PedidoServ
         //Establece la fecha actual
         pedido.setFechaPedido(new Date());
 
+        // Inicializa pedidoDetalles si es null
+        if (pedido.getPedidoDetalles() == null) {
+            pedido.setPedidoDetalles(new ArrayList<>());
+        }
+
         //Calcula el total del pedido sumando los precios de los instrumentos por la cantidad
         double total = pedido.getPedidoDetalles().stream()
                 .mapToDouble(detalle -> detalle.getInstrumento().getPrecio() * detalle.getCantidad())
                 .sum();
         pedido.setTotalPedido(total);
+
+        // Asigna el pedido a cada detalle
+        for (PedidoDetalle detalle : pedido.getPedidoDetalles()) {
+            detalle.setPedido(pedido);
+        }
 
         //Guarda en la db
         Pedido savedPedido = pedidoRepository.save(pedido);
