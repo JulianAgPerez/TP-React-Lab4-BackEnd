@@ -6,12 +6,11 @@ import com.utn.tpreactbackend.repository.PedidoRepository;
 import com.utn.tpreactbackend.service.IPedidoService;
 import com.utn.tpreactbackend.service.Impl.PedidoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/pedidos")
@@ -27,7 +26,7 @@ public class PedidoControllerImpl  extends BaseControllerImpl<Pedido, PedidoServ
 
     @Override
     @PostMapping("/crear")
-    public ResponseEntity<String> createPedido(@RequestBody Pedido pedido) {
+    public ResponseEntity<Object> createPedido(@RequestBody Pedido pedido) {
         //Establece la fecha actual
         pedido.setFechaPedido(new Date());
 
@@ -49,7 +48,13 @@ public class PedidoControllerImpl  extends BaseControllerImpl<Pedido, PedidoServ
 
         //Guarda en la db
         Pedido savedPedido = pedidoRepository.save(pedido);
-        return ResponseEntity.ok("El pedido con id " + savedPedido.getId() + " se guardó correctamente");
+
+        // Crea un mapa para almacenar la información de la respuesta
+        Map<String, Object> response = new HashMap<>();
+        response.put("mensaje", "El pedido con id " + savedPedido.getId() + " se guardó correctamente");
+        response.put("idPedido", savedPedido.getId());
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 }

@@ -4,5 +4,5 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 
 public interface IPedidoController extends IBaseController<Pedido,Long>{
-    ResponseEntity<String> createPedido(@RequestBody Pedido pedido);
+    ResponseEntity<Object> createPedido(@RequestBody Pedido pedido);
 }

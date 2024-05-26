@@ -29,7 +29,7 @@ public class Pedido extends Base {
     private Date fechaPedido;
     @Column(name = "totalPedido")
     private double totalPedido;
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true) //en caso de dar error eliminar lazy
     @JsonManagedReference //sirve para marcar que es padre ( y evitar referencia circular)
     private List<PedidoDetalle> pedidoDetalles;
 }
