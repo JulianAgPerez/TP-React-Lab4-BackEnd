@@ -24,6 +24,19 @@ public class PedidoControllerImpl  extends BaseControllerImpl<Pedido, PedidoServ
         super(servicio);
     }
 
+    @GetMapping("/last")
+    public ResponseEntity<Pedido> getLastPedido() {
+        try {
+            Pedido lastPedido = servicio.findLast();
+            if (lastPedido != null) {
+                return ResponseEntity.ok(lastPedido);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
     @Override
     @PostMapping("/crear")
     public ResponseEntity<Object> createPedido(@RequestBody Pedido pedido) {

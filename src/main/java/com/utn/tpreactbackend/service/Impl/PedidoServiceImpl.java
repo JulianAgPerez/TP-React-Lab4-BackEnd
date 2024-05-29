@@ -26,4 +26,14 @@ public class PedidoServiceImpl extends BaseServiceImpl<Pedido,Long> implements I
         pedidos.forEach(pedido -> Hibernate.initialize(pedido.getPedidoDetalles()));
         return pedidos;
     }
+    @Transactional(readOnly = true)
+    public Pedido findLast(){
+        Pedido pedido = pedidoRepository.findAll().getLast();
+        if (pedido != null) {
+            // Forzar la carga de la colección pedidoDetalles antes de devolver el Pedido
+            pedido.getPedidoDetalles().size();
+        }
+        return pedido;
+    }
+
 }

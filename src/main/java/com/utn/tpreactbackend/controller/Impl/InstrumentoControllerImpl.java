@@ -14,7 +14,7 @@ public class InstrumentoControllerImpl extends BaseControllerImpl<Instrumento, I
     public InstrumentoControllerImpl(InstrumentoServiceImpl servicio) {
         super(servicio);
     }
-    @PostMapping("api/create_preference_mp")
+    @PostMapping("/create_preference_mp")
     public PreferenceMp crearPreferenciaMercadoPago(@RequestBody Pedido pedido){
         MercadoPagoController cMercadoPago = new MercadoPagoController();
         PreferenceMp preference = cMercadoPago.getPreferenciaIdMercadoPago(pedido);

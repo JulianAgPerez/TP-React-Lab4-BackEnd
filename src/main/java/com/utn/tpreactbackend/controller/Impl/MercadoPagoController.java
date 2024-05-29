@@ -8,13 +8,18 @@ import com.mercadopago.client.preference.PreferenceRequest;
 import com.mercadopago.resources.preference.Preference;
 import com.utn.tpreactbackend.entities.Pedido;
 import com.utn.tpreactbackend.entities.PreferenceMp;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-
+@RestController
+@CrossOrigin("/mercadopago")
 public class MercadoPagoController {
-
+@PostMapping("/createPreference")
     public PreferenceMp getPreferenciaIdMercadoPago(Pedido pedido) {
         try {
             MercadoPagoConfig.setAccessToken("TOKEN");
@@ -30,8 +35,8 @@ public class MercadoPagoController {
             List<PreferenceItemRequest> items = new ArrayList<>();
             items.add(itemRequest);
 
-            PreferenceBackUrlsRequest backURL = PreferenceBackUrlsRequest.builder().success("http://localhost:5173/mpsuccess")
-                    .pending("http://localhost:5173/mppending").failure("http://localhost:5173/mpfailure").build();
+            PreferenceBackUrlsRequest backURL = PreferenceBackUrlsRequest.builder().success("http://localhost:5173/").build();
+                    /*.pending("http://localhost:5173/mppending").failure("http://localhost:5173/mpfailure").build()*/
 
             PreferenceRequest preferenceRequest = PreferenceRequest.builder()
                     .items(items)
