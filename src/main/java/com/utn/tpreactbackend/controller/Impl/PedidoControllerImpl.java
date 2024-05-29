@@ -48,9 +48,12 @@ public class PedidoControllerImpl  extends BaseControllerImpl<Pedido, PedidoServ
             pedido.setPedidoDetalles(new ArrayList<>());
         }
 
-        //Calcula el total del pedido sumando los precios de los instrumentos por la cantidad
+        // Calcula el total del pedido sumando los precios de los instrumentos por la cantidad y añadiendo el costo de envío
         double total = pedido.getPedidoDetalles().stream()
-                .mapToDouble(detalle -> detalle.getInstrumento().getPrecio() * detalle.getCantidad())
+                .mapToDouble(detalle -> {
+                    double costoEnvio = "G".equals(detalle.getInstrumento().getCostoEnvio()) ? 0 : Double.parseDouble(detalle.getInstrumento().getCostoEnvio());
+                    return detalle.getInstrumento().getPrecio() * detalle.getCantidad() + (costoEnvio * detalle.getCantidad());
+                })
                 .sum();
         pedido.setTotalPedido(total);
 
