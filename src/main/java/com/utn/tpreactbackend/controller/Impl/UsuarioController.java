@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,6 +16,8 @@ public class UsuarioController extends BaseControllerImpl<Usuario, UsuarioServic
     @Autowired
     private UsuarioService usuarioService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     public UsuarioController(UsuarioService servicio) {
         super(servicio);
     }
@@ -37,9 +40,8 @@ public class UsuarioController extends BaseControllerImpl<Usuario, UsuarioServic
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ya existe una cuenta con este nombre de usuario");
         }
 
-        // Encripta la contraseña
-        String encriptedClave = new BCryptPasswordEncoder().encode(newUsuario.getClave());
-        newUsuario.setClave(encriptedClave);
+        // Encripta la contraseña antes de guardarla
+        newUsuario.setClave(passwordEncoder.encode(newUsuario.getClave()));
 
         // Valida el rol (solo acepta "Admin", "Operador" o "Visor")
         if (!isValidRol(newUsuario.getRol())) {

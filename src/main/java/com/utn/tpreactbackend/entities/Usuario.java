@@ -21,7 +21,4 @@ public class Usuario extends Base {
     private String clave;
     private String rol;
 
-    public void setClave(String clave) {
-        this.clave = new BCryptPasswordEncoder().encode(clave);
-    }
 }
