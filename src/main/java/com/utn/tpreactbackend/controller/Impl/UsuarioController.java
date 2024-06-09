@@ -5,6 +5,10 @@ import com.utn.tpreactbackend.service.Impl.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +19,8 @@ public class UsuarioController extends BaseControllerImpl<Usuario, UsuarioServic
 
     @Autowired
     private UsuarioService usuarioService;
-
+    @Autowired
+    private AuthenticationManager authenticationManager;
     @Autowired
     private PasswordEncoder passwordEncoder;
     public UsuarioController(UsuarioService servicio) {
@@ -24,10 +29,21 @@ public class UsuarioController extends BaseControllerImpl<Usuario, UsuarioServic
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Usuario loginUsuario) {
-        Usuario usuario = usuarioService.findByNombreUsuario(loginUsuario.getNombreUsuario());
-        if (usuario != null && new BCryptPasswordEncoder().matches(loginUsuario.getClave(), usuario.getClave())) {
+        try {
+            // Autenticar al usuario
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginUsuario.getNombreUsuario(), loginUsuario.getClave())
+            );
+
+            // Establecer la autenticación en el contexto de seguridad
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            // Obtener los detalles del usuario autenticado
+            Usuario usuario = usuarioService.findByNombreUsuario(loginUsuario.getNombreUsuario());
+
+            // Retornar los detalles del usuario
             return ResponseEntity.ok(usuario);
-        } else {
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario y/o Clave incorrectos, vuelva a intentar");
         }
     }

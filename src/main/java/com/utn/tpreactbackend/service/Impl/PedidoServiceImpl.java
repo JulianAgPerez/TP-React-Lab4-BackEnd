@@ -36,4 +36,14 @@ public class PedidoServiceImpl extends BaseServiceImpl<Pedido,Long> implements I
         return pedido;
     }
 
+    @Override
+    public List<Object[]> countByMonthAndYear(int mes, int anio) {
+        return pedidoRepository.countByMonthAndYear(mes, anio);
+    }
+
+    @Override
+    public List<Object[]> countByInstrumento() {
+        return pedidoRepository.countByInstrumento();
+    }
+
 }

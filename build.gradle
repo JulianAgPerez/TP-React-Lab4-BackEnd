@@ -32,6 +32,10 @@ dependencies {
     implementation 'mysql:mysql-connector-java:8.0.30'
     implementation 'com.mercadopago:sdk-java:2.1.24'
     implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.apache.poi:poi:5.2.3'   // para trabajar con archivos binarios de Office (.xls, .doc, etc.).
+    implementation 'org.apache.poi:poi-ooxml:5.2.3' //para trabajar con archivos basados en XML de Office (.xlsx, .docx, etc.).
+    implementation 'org.apache.pdfbox:pdfbox:2.0.24'
+
 }
 
 tasks.named('test') {

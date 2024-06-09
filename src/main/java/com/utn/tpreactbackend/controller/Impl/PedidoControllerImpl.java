@@ -5,6 +5,7 @@ import com.utn.tpreactbackend.entities.PedidoDetalle;
 import com.utn.tpreactbackend.repository.PedidoRepository;
 import com.utn.tpreactbackend.service.IPedidoService;
 import com.utn.tpreactbackend.service.Impl.PedidoServiceImpl;
+import jakarta.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -72,5 +73,15 @@ public class PedidoControllerImpl  extends BaseControllerImpl<Pedido, PedidoServ
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+    @GetMapping("/contar-por-mes-anio")
+    public ResponseEntity<List<Object[]>> countByMonthAndYear(@RequestParam int mes, @RequestParam int anio) {
+        List<Object[]> count = servicio.countByMonthAndYear(mes, anio);
+        return ResponseEntity.ok(count);
+    }
 
+    @GetMapping("/contar-por-instrumento")
+    public ResponseEntity<List<Object[]>> countByInstrumento() {
+        List<Object[]> counts = servicio.countByInstrumento();
+        return ResponseEntity.ok(counts);
+    }
 }
