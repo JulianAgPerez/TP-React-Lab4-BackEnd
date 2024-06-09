@@ -1,9 +1,9 @@
-package com.utn.tpreactbackend.utils.reports;
+package com.utn.tpreactbackend.utils.reports.excel;
 
 import com.utn.tpreactbackend.entities.PedidoDetalle;
 import com.utn.tpreactbackend.repository.PedidoDetalleRepository;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,14 +21,15 @@ public class ReportService {
     public byte[] generateReport(LocalDate startDate, LocalDate endDate) throws IOException {
         List<PedidoDetalle> pedidoDetalles = pedidoDetalleRepository.findPedidosBetweenDates(startDate, endDate);
 
-        try (Workbook workbook = new XSSFWorkbook()) {
+        // Crea un nuevo SXSSFWorkbook con una ventana de 50 filas en memoria
+        try (Workbook workbook = new SXSSFWorkbook(50)) {
             Sheet sheet = workbook.createSheet("Reporte de Pedidos");
 
             // Encabezado
             String[] headers = {"Fecha Pedido", "Instrumento", "Marca", "Modelo", "Cantidad", "Precio", "Subtotal"};
             Row headerRow = sheet.createRow(0);
 
-            //Estilos para el texto en negrita
+            // Estilos para el texto en negrita
             CellStyle headerCellStyle = workbook.createCellStyle();
             Font headerFont = workbook.createFont();
             headerFont.setBold(true);
@@ -64,4 +65,3 @@ public class ReportService {
         }
     }
 }
-

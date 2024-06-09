@@ -1,4 +1,4 @@
-package com.utn.tpreactbackend.utils.reports;
+package com.utn.tpreactbackend.utils.reports.excel;
 
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;

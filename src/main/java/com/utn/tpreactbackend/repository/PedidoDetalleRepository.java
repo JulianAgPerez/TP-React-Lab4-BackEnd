@@ -12,4 +12,3 @@ public interface PedidoDetalleRepository extends JpaRepository<PedidoDetalle, Lo
     @Query("SELECT pd FROM PedidoDetalle pd JOIN pd.pedido p WHERE p.fechaPedido BETWEEN :fechaDesde AND :fechaHasta")
     List<PedidoDetalle> findPedidosBetweenDates(@Param("fechaDesde") LocalDate fechaDesde, @Param("fechaHasta") LocalDate fechaHasta);
 }
-
