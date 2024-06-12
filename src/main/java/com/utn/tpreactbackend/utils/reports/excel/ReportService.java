@@ -3,6 +3,7 @@ package com.utn.tpreactbackend.utils.reports.excel;
 import com.utn.tpreactbackend.entities.PedidoDetalle;
 import com.utn.tpreactbackend.repository.PedidoDetalleRepository;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.streaming.SXSSFSheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,6 +55,9 @@ public class ReportService {
                 row.createCell(6).setCellValue(pedidoDetalle.getCantidad() * pedidoDetalle.getInstrumento().getPrecio().doubleValue());
             }
 
+            // Rastrear columnas para autoajuste
+            trackColumnsForAutoSize(sheet, headers.length);
+
             // Auto tamaño de columnas
             for (int i = 0; i < headers.length; i++) {
                 sheet.autoSizeColumn(i);
@@ -62,6 +66,14 @@ public class ReportService {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             workbook.write(outputStream);
             return outputStream.toByteArray();
+        }
+    }
+    private void trackColumnsForAutoSize(Sheet sheet, int numberOfColumns) {
+        if (sheet instanceof SXSSFSheet) {
+            SXSSFSheet sxSheet = (SXSSFSheet) sheet;
+            for (int i = 0; i < numberOfColumns; i++) {
+                sxSheet.trackColumnForAutoSizing(i);
+            }
         }
     }
 }
