@@ -30,6 +30,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'mysql:mysql-connector-java:8.0.30'
     implementation 'mysql:mysql-connector-java:8.0.30'
+    runtimeOnly 'org.postgresql:postgresql'
     implementation 'com.mercadopago:sdk-java:2.1.24'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.apache.poi:poi:5.2.3'   // para trabajar con archivos binarios de Office (.xls, .doc, etc.).
